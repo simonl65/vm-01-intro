@@ -16,6 +16,12 @@ var app = new Vue({
                 variantColor: 'blue'
             }
         ],
-        sizes: ['small','medium','large'],
+        cart: 0,
+    },
+
+    methods: {
+        addToCart: function() {
+            this.cart += 1;
+        }
     }
 });
