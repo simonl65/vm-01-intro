@@ -9,11 +9,13 @@ var app = new Vue({
         variants: [
             {
                 variantId: 2234,
-                variantColor: 'green'
+                variantColor: 'green',
+                variantImage: './assets/vmSocks-green.jpg',
             },
             {
                 variantId: 2235,
-                variantColor: 'blue'
+                variantColor: 'blue',
+                variantImage: './assets/vmSocks-blue.jpg',
             }
         ],
         cart: 0,
@@ -22,6 +24,10 @@ var app = new Vue({
     methods: {
         addToCart: function() {
             this.cart += 1;
+        },
+
+        updateProduct: function(image) {
+            this.image = image;
         }
     }
 });
