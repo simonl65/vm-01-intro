@@ -2,54 +2,55 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>vm-01-intro: My Product App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vm-01-intro: My Product App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="nav-bar"></div>
+  <div class="nav-bar"></div>
 
-    <div id="app">
-        <div class="product">
+  <div id="app">
+    <div class="product">
 
-            <div class="product-image">
-                <img v-bind:src="image" alt="">
-            </div>
+      <div class="product-image">
+        <img v-bind:src="image" alt="">
+      </div>
 
-            <div class="product-info">
-                <h1>{{ product }}</h1>
-                <p v-if="inStock">In Stock</p>
-                <p v-else>Out of Stock</p>
+      <div class="product-info">
+        <h1>{{ product }}</h1>
+        <p v-if="inStock">In Stock</p>
+        <p v-else>Out of Stock</p>
 
-                <ul>
-                    <li v-for="detail in details">{{ detail }}</li>
-                </ul>
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
 
-                <div v-for="variant in variants" 
-                    :key="variant.variantId"
-                    class="color-box"
-                    :style="{ backgroundColor: variant.variantColor }"
-                    @mouseover="updateProduct(variant.variantImage)"
-                >
-                </div>
-
-                <button @click="addToCart" 
-                    :disabled="!inStock"
-                    :class="{ disabledButton: !inStock }"
-                >Add to Cart</button>
-
-                <div class="cart">
-                    <p>Cart ({{ cart }})</p>
-                </div>
-            </div>
+        <div v-for="variant in variants" 
+            :key="variant.variantId"
+            class="color-box"
+            :style="{ backgroundColor: variant.variantColor }"
+            @mouseover="updateProduct(variant.variantImage)"
+        >
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="main.js"></script>
+        <button
+            @click="addToCart"
+            :class="{disabledButton: !inStock}"
+            :disabled="!inStock"
+        >Add to Cart</button>
+
+        <div class="cart">
+          <p>Cart ({{ cart }})</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
