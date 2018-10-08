@@ -1,6 +1,13 @@
 Vue.component(
     'product',
     {
+        props: {
+            premium: {
+                type: Boolean,
+                required: true
+            }
+        },
+
         data() {
             return {
                 brand: 'Vue Mastery',
@@ -64,6 +71,8 @@ Vue.component(
                 <p v-if="inStock">In Stock</p>
                 <p v-else :class="{ outOfStockClass: !inStock }">Out of Stock</p>
 
+                <p>User is premium: {{ premium }}</p>
+
                 <ul>
                     <li v-for="detail in details">{{ detail }}</li>
                 </ul>
@@ -92,5 +101,9 @@ Vue.component(
 );
 
 var app = new Vue({
-    el: "#app"
+    el: "#app",
+
+    data: {
+        premium: true,
+    }
 });
