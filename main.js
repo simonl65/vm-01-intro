@@ -1,18 +1,3 @@
-Vue.component( 'detail', {
-    props: {
-        details: {
-            type: String,
-            required: true,
-            default() { return "Must supply a 'details' property."; }
-        },
-    },
-
-    template:
-    `
-    <div>{{ details }}</div>
-    `
-});
-
 Vue.component( 'product', {
     props: {
         premium: {
