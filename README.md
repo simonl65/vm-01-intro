@@ -1,5 +1,11 @@
 # Component to parent events:
 
+## Sequence:
+1. Component's button @click...
+2. ...calls component’s `addToCart` method...
+3. ...which emits `add-to-cart` event...
+4. ...which triggers `updateCart` method in Vue instance
+
 ## html:
 ```html
 <product @add-to-cart=“updateCart”></product>
@@ -28,9 +34,3 @@ methods: {
     }
 }
 ```
-
-## Sequence:
-1. Button @click
-2. Calls component’s `addToCart` method
-3. Which emits `add-to-cart` event
-4. Which triggers `updateCart` method in Vue instance
