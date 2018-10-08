@@ -20,7 +20,8 @@ var app = new Vue({
                 variantQty: 0,
             }
         ],
-        cart: 0
+        cart: 0,
+        onSale: true,
     },
 
     computed: {
@@ -32,6 +33,9 @@ var app = new Vue({
         },
         inStock() {
             return this.variants[ this.selectedVariant ].variantQty;
+        },
+        productSale() {
+            return this.onSale ? 'ON SALE!' : '';
         }
     },
 

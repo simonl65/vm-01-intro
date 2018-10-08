@@ -20,7 +20,7 @@
       </div>
 
       <div class="product-info">
-        <h1>{{ title }}</h1>
+        <h1>{{ title }} <span style="color:red; font-style:italic;">{{ productSale }}</span></h1>
         <p v-if="inStock">In Stock</p>
         <p v-else :class="{ outOfStockClass: !inStock }">Out of Stock</p>
 
