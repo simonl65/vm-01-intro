@@ -26,8 +26,7 @@ Vue.component( 'product', {
                     variantQty: 0,
                 }
             ],
-            cart: 0,
-            onSale: true,
+            onSale: false,
         }
     },
 
@@ -48,7 +47,7 @@ Vue.component( 'product', {
 
     methods: {
         addToCart: function() {
-            this.cart += 1;
+            this.$emit('add-to-cart');
         },
 
         updateProduct: function(index) {
@@ -89,9 +88,6 @@ Vue.component( 'product', {
                 :disabled="!inStock"
             >Add to Cart</button>
 
-            <div class="cart">
-                <p>Cart ({{ cart }})</p>
-            </div>
             </div>
         </div>
     `
@@ -102,5 +98,12 @@ var app = new Vue({
 
     data: {
         premium: true,
+        cart: 0,
+    },
+
+    methods: {
+        updateCart() {
+            this.cart += 1;
+        }
     }
 });
