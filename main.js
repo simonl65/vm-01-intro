@@ -104,12 +104,15 @@ Vue.component('product-tabs', {
 
     template: `
     <div>
-        <span class="tab"
+        <a class="tab" 
             :class="{ activeTab: selectedTab === tab }"
             v-for="(tab, idx) in tabs"
             :key="idx"
             @click="selectedTab = tab"
-        >{{ tab }}</span>
+            @keyup.enter="selectedTab = tab"
+            @keyup.space="selectedTab = tab"
+            tabindex="0"
+        >{{ tab }}</a>
 
         <div v-show="selectedTab === 'Reviews'">
             <p v-if="!reviews.length">There are no reviews yet.</p>
