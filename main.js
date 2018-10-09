@@ -85,6 +85,13 @@ Vue.component('product-review', {
 })
 
 Vue.component('product-tabs', {
+    props: {
+        reviews: {
+            type: Array,
+            required: false
+        }
+    },
+
     data() {
         return {
             tabs: ['Reviews', 'Add a review'],
@@ -100,7 +107,21 @@ Vue.component('product-tabs', {
             :key="idx"
             @click="selectedTab = tab"
         >{{ tab }}</span>
-    </div>`
+
+        <div v-show="selectedTab === 'Reviews'">
+            <p v-if="!reviews.length">There are no reviews yet.</p>
+            <ul v-else>
+                <li v-for="review in reviews">
+                    <p class="ratingTitle">{{ review.name }} (Rating: {{ review.rating }})</p>
+                    <p class="ratingText">{{ review.review }}</p>
+                    <small v-if="review.recommendation == 'yes'">Product is recommended</small>
+                </li>
+            </ul>
+        </div>
+
+        <product-review v-show="selectedTab === 'Reviews'" @review-submitted="addReview"></product-review>
+    </div>
+    `
 });
 
 Vue.component( 'product', {
@@ -199,18 +220,7 @@ Vue.component( 'product', {
                 >Add to Cart</button>
             </div>
 
-            <div>
-                <product-tabs></product-tabs>
-                <p v-if="!reviews.length">There are no reviews yet.</p>
-                <ul>
-                    <li v-for="review in reviews">
-                        <p class="ratingTitle">{{ review.name }} (Rating: {{ review.rating }})</p>
-                        <p class="ratingText">{{ review.review }}</p>
-                        <small v-if="review.recommendation == 'yes'">Product is recommended</small>
-                    </li>
-                </ul>
-            </div>
-            <product-review @review-submitted="addReview"></product-review>
+            <product-tabs :reviews="reviews"></product-tabs>
         </div>
     `
 });
