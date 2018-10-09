@@ -4,30 +4,35 @@ Vue.component('product-review', {
             name: null,
             review: null,
             rating: null,
+            recommendation: null,
             errors: [],
         }
     },
 
     methods: {
         onSubmit() {
-            if( this.name && this.rating && this.review ) {
+            console.log(this.recommendation)
+            if( this.name && this.rating && this.review && this.recommendation ) {
                 let productReview = {
                     name: this.name,
                     review: this.review,
-                    rating: this.rating
+                    rating: this.rating,
+                    recommendation: this.recommendation
                 }
 
                 this.$emit('review-submitted', productReview)
 
                 this.name = null,
                 this.review = null,
-                this.rating = null
+                this.rating = null,
+                this.recommendation = null
             }
             else {
                 this.errors = [];
                 if( !this.name ) this.errors.push("Name is required.")
                 if( !this.review ) this.errors.push("Review is required.")
                 if( !this.rating ) this.errors.push("Rating is required.")
+                if( !this.recommendation ) this.errors.push("Must decide on a recommendation.")
             }
         }
     },
@@ -63,6 +68,14 @@ Vue.component('product-review', {
                 </select>
             </p>
 
+            <p>Would you recommend this product?</p>
+            <label style="display: inline-block">
+                Yes <input type="radio" name="recommendation" v-model="recommendation" value="yes">
+            </label>
+            <label style="display: inline-block">
+                No <input type="radio" name="recommendation" v-model="recommendation" value="no">
+            </label>
+          
             <p>
                 <input type="submit" value="Submit">
             </p>
@@ -174,6 +187,7 @@ Vue.component( 'product', {
                     <li v-for="review in reviews">
                         <p class="ratingTitle">{{ review.name }} (Rating: {{ review.rating }})</p>
                         <p class="ratingText">{{ review.review }}</p>
+                        <small v-if="review.recommendation == 'yes'">Product is recommended</small>
                     </li>
                 </ul>
             </div>
