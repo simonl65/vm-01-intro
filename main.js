@@ -84,6 +84,25 @@ Vue.component('product-review', {
     `
 })
 
+Vue.component('product-tabs', {
+    data() {
+        return {
+            tabs: ['Reviews', 'Add a review'],
+            selectedTab: 'Reviews',
+        }
+    },
+
+    template: `
+    <div>
+        <span class="tab"
+            :class="{ activeTab: selectedTab === tab }"
+            v-for="(tab, idx) in tabs"
+            :key="idx"
+            @click="selectedTab = tab"
+        >{{ tab }}</span>
+    </div>`
+});
+
 Vue.component( 'product', {
     props: {
         premium: {
@@ -181,7 +200,7 @@ Vue.component( 'product', {
             </div>
 
             <div>
-                <h2>Reviews</h2>
+                <product-tabs></product-tabs>
                 <p v-if="!reviews.length">There are no reviews yet.</p>
                 <ul>
                     <li v-for="review in reviews">
