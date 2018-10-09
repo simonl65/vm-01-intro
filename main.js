@@ -3,28 +3,45 @@ Vue.component('product-review', {
         return {
             name: null,
             review: null,
-            rating: null
+            rating: null,
+            errors: [],
         }
     },
 
     methods: {
         onSubmit() {
-            let productReview = {
-                name: this.name,
-                review: this.review,
-                rating: this.rating
+            if( this.name && this.rating && this.review ) {
+                let productReview = {
+                    name: this.name,
+                    review: this.review,
+                    rating: this.rating
+                }
+
+                this.$emit('review-submitted', productReview)
+
+                this.name = null,
+                this.review = null,
+                this.rating = null
             }
-
-            this.$emit('review-submitted', productReview)
-
-            this.name = null,
-            this.review = null,
-            this.rating = null
+            else {
+                this.errors = [];
+                if( !this.name ) this.errors.push("Name is required.")
+                if( !this.review ) this.errors.push("Review is required.")
+                if( !this.rating ) this.errors.push("Rating is required.")
+            }
         }
     },
 
     template: `
         <form class="review-form" @submit.prevent="onSubmit">
+
+            <p class="errors" v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul v-for="error in errors">
+                    <li>{{ error }}</li>
+                </ul>
+            </p>
+
             <p>
                 <label for="name">Name:</label>
                 <input id="name" v-model="name">
@@ -104,7 +121,7 @@ Vue.component( 'product', {
 
     methods: {
         addToCart: function() {
-            this.$emit('add-tßo-cart', this.variants[ this.selectedVariant ].variantId);
+            this.$emit('add-to-cart', this.variants[ this.selectedVariant ].variantId);
         },
 
         updateProduct: function(index) {
@@ -150,6 +167,16 @@ Vue.component( 'product', {
                 >Add to Cart</button>
             </div>
 
+            <div>
+                <h2>Reviews</h2>
+                <p v-if="!reviews.length">There are no reviews yet.</p>
+                <ul>
+                    <li v-for="review in reviews">
+                        <p class="ratingTitle">{{ review.name }} (Rating: {{ review.rating }})</p>
+                        <p class="ratingText">{{ review.review }}</p>
+                    </li>
+                </ul>
+            </div>
             <product-review @review-submitted="addReview"></product-review>
         </div>
     `

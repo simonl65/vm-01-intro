@@ -91,3 +91,10 @@ textarea {
 .outOfStockClass {
   text-decoration: line-through
 }
+
+.errors {
+  background: rgb(255, 126, 126);
+  border: 1px solid rgb(255, 84, 84);
+  border-radius: 5px;
+  padding: 5px;
+}
