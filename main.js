@@ -90,7 +90,8 @@ Vue.component('product-tabs', {
     props: {
         reviews: {
             type: Array,
-            required: false
+            required: false,
+            default() { return [] }
         }
     },
 
@@ -171,6 +172,12 @@ Vue.component( 'product', {
         },
         productSale() {
             return this.onSale ? 'ON SALE!' : '';
+        },
+        shipping() {
+            if (this.premium) {
+                return "Free"
+            }
+            return 2.99
         }
     },
 
@@ -181,11 +188,11 @@ Vue.component( 'product', {
     },
 
     methods: {
-        addToCart: function() {
+        addToCart() {
             this.$emit('add-to-cart', this.variants[ this.selectedVariant ].variantId);
         },
 
-        updateProduct: function(index) {
+        updateProduct(index) {
             this.selectedVariant = index;
         },
     },
@@ -203,7 +210,7 @@ Vue.component( 'product', {
                 <p v-if="inStock">In Stock</p>
                 <p v-else :class="{ outOfStockClass: !inStock }">Out of Stock</p>
 
-                <p>User is premium: {{ premium }}</p>
+                <p>Shipping: {{ shipping }}</p>
 
                 <ul>
                     <li v-for="detail in details">{{ detail }}</li>
